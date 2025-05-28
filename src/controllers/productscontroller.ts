@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import {
-  getAllProducts,
-  getProductById,
-  createProductDetails,
-  updateProductDetails,
-  deleteProductById,
-} from "../model/product";
+// import {
+//   getAllProducts,
+//   getProductById,
+//   createProductDetails,
+//   updateProductDetails,
+//   deleteProductById,
+// } from "../model/product";
 import { SqlProductModel } from "../sql-models/product-sql-model";
 
 export const getAllProductsController = async (req: Request, res: Response) => {
@@ -13,32 +13,33 @@ export const getAllProductsController = async (req: Request, res: Response) => {
   res.json(products);
 };
 
-export const getProductByIdController = (req: Request, res: Response) => {
+export const getProductByIdController = async(req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  const product = getProductById(id);
+  const product = await SqlProductModel.getProductById(id);
+  console.log("product cont", product)
   if (!product) res.status(404).json({ error: "Product not found" });
   res.status(200).json(product);
 };
 
-export const createProductController = (req: Request, res: Response) => {
-  const { name, price, description } = req.body;
-  const newProduct = createProductDetails({ name, price, description });
+export const createProductController = async(req: Request, res: Response) => {
+  const {  username, name, email } = req.body;
+  const newProduct = await SqlProductModel.create({ username, name, email});
   res.status(201).json(newProduct);
 };
 
-export const updateProductController = (req: Request, res: Response) => {
+export const updateProductController = async(req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  const { name, price, description } = req.body;
+  const { username, name, email, created_id} = req.body;
 
-  const updated = updateProductDetails(id, { name, price, description });
+  const updated = await SqlProductModel.update(id, { username, name, email, created_id});
   if (!updated) res.status(404).json({ error: "Product not found" });
 
   res.status(200).json(updated);
 };
 
-export const deleteProductController = (req: Request, res: Response) => {
+export const deleteProductController =async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
-  const deleted = deleteProductById(id);
+  const deleted =await SqlProductModel.deleteProductById(id);
   if (!deleted) res.status(404).json({ error: "Product not found" });
 
   res.status(200).json(deleted);
