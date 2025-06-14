@@ -1,34 +1,16 @@
 import express, { Request, Response, NextFunction } from "express";
-import Linking from "./routes/productsroutes";
-import productsroutes from "./routes/productsroutes";
-import { error } from "console";
 import { categoryRouter } from "./routes/category.router";
+import { userRouter } from "./routes/users.router";
+import { productsrouter } from "./routes/products.router";
+import o_router from "./routes/order.router";
 
 const app = express();
 
 app.use(express.json());
-app.use("/products", productsroutes);
+app.use("/products", productsrouter);
 app.use("/category", categoryRouter);
-// const lock = "ram";
-// app.get(
-//   "/",
-//   (req: Request, res: Response, next: NextFunction) => {
-//     const lock = req.query.name;
-
-//     if (lock === "ram") {
-//       next();
-//     } else {
-//       res.send("Access Denied");
-//     }
-//   },
-//   (req: Request, res: Response) => {
-//     res.send("Hello World!");
-//   }
-// );
-// app.use((error: any, req: Request, res: Response, next: NextFunction) => {
-//   console.error(error);
-//   res.status(500).send("Internal Server Error");
-// });
+app.use("/users", userRouter);
+app.use("/orders", o_router);
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   console.log("Error Received", error);
@@ -42,7 +24,7 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
 app.listen(4000, () => {
   console.log("Server running on http://localhost:4000");
 });
-app.use("/products", productsroutes);
+app.use("/products", productsrouter);
 
 const PORT = 4000;
 app.listen(PORT, () => {

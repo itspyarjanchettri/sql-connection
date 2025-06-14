@@ -25,23 +25,29 @@ export const sqlCategoryModel = {
     };
   },
 
-  async updateCategory(id: number, categories: Partial<{ name: string }>) {
+  async updateCategory(
+    id: number,
+    categor: Partial<{ category_name: string }>
+  ) {
     const fields = [];
     const values = [];
-    if (categories.name !== undefined){
-      fields.push("name=?");
-      values.push(categories.name);
+    if (categor.category_name !== undefined) {
+      fields.push("category_name=?");
+      values.push(categor.category_name);
     }
     if (!fields.length) return undefined;
-    await pool.query(`UPDATE categories SET ${fields.join(", ")} WHERE category_id = ?`,
-      [...values, id]);
-      return this.getcategoryById(id);
+    await pool.query(
+      `UPDATE categories SET ${fields.join(", ")} WHERE category_id = ?`,
+      [...values, id]
+    );
+    return this.getcategoryById(id);
   },
 
-  async deleteCategoryById(id:number){
-    const [rows]:any = await pool.query("delete from categories where category_id = ?",[
-      id,
-    ]);
+  async deleteCategoryById(id: number) {
+    const [rows]: any = await pool.query(
+      "delete from categories where category_id = ?",
+      [id]
+    );
     return rows.affectedRows > 0;
-  }
+  },
 };
