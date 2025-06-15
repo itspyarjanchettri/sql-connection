@@ -93,20 +93,18 @@ export const getUsersById = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   const id = req.params.id;
   const { user_name, user_email, user_password } = req.body;
-    console.log(req.body)
+  console.log(req.body);
   const updatedUser = await updateUserService(id, {
-  
     user_name,
     user_email,
     user_password,
   });
-  console.log("result",updatedUser)
-  
+  console.log("result", updatedUser);
+
   if (!updatedUser) {
     res.status(404).json({ message: "user not found" });
-  
   }
-  const error =({ ...updatedUser, ...req.body });
+  const error = { ...updatedUser, ...req.body };
   if (error) {
     res.status(400).json({ message: error });
     return;
@@ -121,9 +119,9 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const deleteUserById = async (req: Request, res: Response) => {
   const id = req.params.id;
-  console.log(id)
+  console.log(id);
   const deletedUser = deleteUserService(id);
-  console.log(deletedUser)
+  console.log(deletedUser);
   if (!deletedUser) {
     res.status(404).json({ message: "User not found" });
     return;
@@ -140,5 +138,3 @@ export const createUserController = async (req: Request, res: Response) => {
     res.send(err);
   }
 };
-
-

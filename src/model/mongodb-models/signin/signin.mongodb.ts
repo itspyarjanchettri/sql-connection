@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const signInSchema = new Schema({
-    user_name: {
+    user_email: {
         type:String,
         require: true
     },

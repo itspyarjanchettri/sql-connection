@@ -1,10 +1,7 @@
 import User from "../users/user.mangodb-model";
 import SignIn from "./signin.mongodb";
 
- async function SaveSignInUserData(
-  user_email: string,
-  user_password: string
-) {
+async function SaveSignInUserData(user_email: string, user_password: string) {
   const signIn = new SignIn({
     user_email: user_email,
     user_password: user_password,
@@ -12,12 +9,12 @@ import SignIn from "./signin.mongodb";
   return await signIn.save();
 }
 
-async function checkUserFromLogin(email: string) {
-  return await SignIn.find({ email });
+async function checkUserFromLogin(user_email: string) {
+  return await SignIn.find({ user_email });
 }
 
 async function checkUserData(user_email: string, user_password: string) {
   return await User.find({ user_email, user_password });
 }
 
-export {checkUserData, SaveSignInUserData, checkUserFromLogin}
+export { checkUserData, SaveSignInUserData, checkUserFromLogin };

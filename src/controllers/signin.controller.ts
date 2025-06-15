@@ -8,9 +8,13 @@ export const UserSignIn = async (req: Request, res: Response) => {
   try {
     const { user_email, user_password } = req.body;
     const getsignindetails = await checkUserData(user_email, user_password);
-
+    console.log("get signin result", getsignindetails);
     if (getsignindetails && getsignindetails.length > 0) {
       const checkExistingMail = await checkUserFromLogin(user_email);
+
+
+       console.log("check existing ",checkExistingMail)
+       
       if (checkExistingMail.length === 0) {
         const savesignindata = await SaveSignInUserData(
           user_email,

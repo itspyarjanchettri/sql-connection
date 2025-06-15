@@ -13,18 +13,20 @@ export async function getAllByIdUserService(id: string) {
 export async function createUser(data: {
   user_name: string;
   user_email: string;
-  user_password: String;
+  user_password: string;
 }) {
   const createUser = new User(data);
   return await createUser.save();
 }
 
-export async function updateUserService(id:string , data: {
-  
-  user_name: string;
-  user_email: string;
-  user_password: String;
-}) {
+export async function updateUserService(
+  id: string,
+  data: {
+    user_name: string;
+    user_email: string;
+    user_password: string;
+  }
+) {
   if (
     data.user_name !== undefined &&
     data.user_email !== undefined &&
@@ -37,9 +39,8 @@ export async function updateUserService(id:string , data: {
           user_name: data.user_name,
           user_email: data.user_email,
           user_password: data.user_password,
-        }
-      },
-  
+        },
+      }
     );
     return updatedUser;
   }

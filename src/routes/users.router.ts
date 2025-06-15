@@ -28,4 +28,4 @@ userRouter.get("/:id", getUsersById);
 userRouter.post("/", createUserController);
 userRouter.delete("/:id", deleteUserById);
 userRouter.put("/:id", updateUser);
-userRouter.post("/",UserSignIn)
+userRouter.post("/login", UserSignIn);
