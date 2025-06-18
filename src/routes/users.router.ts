@@ -20,7 +20,7 @@ import {
   getUsersById,
   updateUser,
 } from "../controllers/users.controller";
-import { UserSignIn } from "../controllers/signin.controller";
+import { UserSignIn } from "../controllers/authController/signin.controller";
 
 export const userRouter = Router();
 userRouter.get("/", getAllUser);
@@ -28,4 +28,4 @@ userRouter.get("/:id", getUsersById);
 userRouter.post("/", createUserController);
 userRouter.delete("/:id", deleteUserById);
 userRouter.put("/:id", updateUser);
-userRouter.post("/login", UserSignIn);
+// userRouter.post("/login", UserSignIn);

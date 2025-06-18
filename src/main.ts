@@ -3,6 +3,7 @@ import { categoryRouter } from "./routes/category.router";
 import { userRouter } from "./routes/users.router";
 import { productsrouter } from "./routes/products.router";
 import o_router from "./routes/order.router";
+import router from "./routes/authentication.router";
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use("/products", productsrouter);
 app.use("/category", categoryRouter);
 app.use("/users", userRouter);
 app.use("/orders", o_router);
+app.use("/auth", router)
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   console.log("Error Received", error);
